@@ -66,4 +66,4 @@ SELECT name, birthdate, species_id, TIMESTAMPDIFF(MONTH, birthdate, now()) AS ag
 UNION ALL
 SELECT name, birthdate, species_id, TIMESTAMPDIFF(MONTH, birthdate, now()) AS age_in_mounth, 'лошади и ослы' AS table_name FROM `лошади и ослы`
 UNION ALL
-SELECT name, birthdate, species_id, TIMESTAMPDIFF(MONTH, birthdate, now()) AS age_in_mounth, 'молодые животные' AS table_name FROM `лошади и ослы`
+SELECT name, birthdate, species_id, TIMESTAMPDIFF(MONTH, birthdate, now()) AS age_in_mounth, 'молодые животные' AS table_name FROM `молодые животные`;

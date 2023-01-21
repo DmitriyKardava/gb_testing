@@ -38,3 +38,21 @@ CREATE TABLE `animals` (
   KEY `animal_species_FK` (`species_id`),
   CONSTRAINT `animal_species_FK` FOREIGN KEY (`species_id`) REFERENCES `animal_species` (`id`)
 );
+
+/*
+выполняемые команды
+*/
+CREATE TABLE `commands` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `command` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `animal_commands` (
+  `animal_id` bigint unsigned NOT NULL,
+  `command_id` bigint unsigned NOT NULL,
+  PRIMARY KEY (`animal_id`,`command_id`),
+  KEY `animal_commands_FK_1` (`command_id`),
+  CONSTRAINT `animal_commands_FK` FOREIGN KEY (`animal_id`) REFERENCES `animals` (`id`),
+  CONSTRAINT `animal_commands_FK_1` FOREIGN KEY (`command_id`) REFERENCES `commands` (`id`)
+);
