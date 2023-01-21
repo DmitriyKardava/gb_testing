@@ -21,7 +21,7 @@ public abstract class Animals {
         return birthDate;
     }
 
-    public void teachCommand(String command){
+    public void addCommand(String command){
         this.commands.add(command);
     }
 

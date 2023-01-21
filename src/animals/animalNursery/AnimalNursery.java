@@ -1,14 +1,21 @@
 package animals.animalNursery;
 import animals.Animals;
+import animals.animalNursery.counter.Counter;
+
 import java.util.ArrayList;
 
 public class AnimalNursery {
     private final ArrayList<Animals> nurseryAnimals = new ArrayList<>();
-    private int counter;
     private int selectedAnimal = -1;
+    public final Counter counter = new Counter();
     public void addAnimal(Animals animal){
-        counter++;
-        nurseryAnimals.add(animal);
+        try (this.counter){
+            if (counter.addCount(animal)) {
+                nurseryAnimals.add(animal);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void selectAnimal(int number){
@@ -18,6 +25,7 @@ public class AnimalNursery {
         }
     }
     public void deleteAnimal() {
+        counter.removeCount();
         if (selectedAnimal >= 0) {
             nurseryAnimals.remove(selectedAnimal);
             selectedAnimal = -1;
@@ -26,7 +34,7 @@ public class AnimalNursery {
 
     public void addCommand(String command) {
         if (selectedAnimal >= 0) {
-            nurseryAnimals.get(selectedAnimal).teachCommand(command);
+            nurseryAnimals.get(selectedAnimal).addCommand(command);
         }
     }
     public void getCommands(){
@@ -43,15 +51,16 @@ public class AnimalNursery {
         if (nurseryAnimals.size() != 0) {
             int i = 0;
             String num;
-            System.out.println(String.format("%-3s %-10s %-10s %-10s","N", "Животное", "Кличка", "Дата рожд."));
+            System.out.println("В питомнике  " + Counter.count + " животных");
+            System.out.printf("%-3s %-10s %-10s %-10s%n","N", "Животное", "Кличка", "Дата рожд.");
             System.out.println(String.format("%36s", "").replace(' ', '-'));
 
             for (Animals animal : nurseryAnimals) {
                 i++;
-                if (selectedAnimal + 1 == i) {num = String.valueOf(i) + "*";}
+                if (selectedAnimal + 1 == i) {num = i + "*";}
                 else {num = String.valueOf(i);}
-                System.out.println(String.format("%-3s %-10s %-10s %-10s",
-                        num, animal.species(), animal.getName(), animal.getBirthDate()));
+                System.out.printf("%-3s %-10s %-10s %-10s%n",
+                        num, animal.species(), animal.getName(), animal.getBirthDate());
             }
             System.out.println();
         }

@@ -61,21 +61,14 @@ public class Main {
         String name = select_animal.readString();
         System.out.print("Дата рождения: ");
         String birth_date = select_animal.readString();
-        switch (species) {
-            case 1:
-                return new Cat(name, birth_date);
-            case 2:
-                return new Dog(name,birth_date);
-            case 3:
-                return new Hamster(name, birth_date);
-            case 4:
-                return new Horse(name, birth_date);
-            case 5:
-                return  new Donkey(name, birth_date);
-            case 6:
-                return new Camel(name, birth_date);
-            default:
-                return null;
-        }
+        return switch (species) {
+            case 1 -> new Cat(name, birth_date);
+            case 2 -> new Dog(name, birth_date);
+            case 3 -> new Hamster(name, birth_date);
+            case 4 -> new Horse(name, birth_date);
+            case 5 -> new Donkey(name, birth_date);
+            case 6 -> new Camel(name, birth_date);
+            default -> null;
+        };
     }
 }
