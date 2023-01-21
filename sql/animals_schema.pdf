@@ -1,0 +1,45 @@
+CREATE TABLE `animal_types` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`animal_type` varchar(100) NOT NULL UNIQUE,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `animal_species` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`animal_specie` varchar(100) NOT NULL UNIQUE,
+	`type_id` INT NOT NULL,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `animals` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`animal_specie` INT NOT NULL,
+	`name` varchar(100) NOT NULL,
+	`birthdate` DATE NOT NULL,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `commands` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`command` varchar(100) NOT NULL UNIQUE,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `animal_commands` (
+	`animal_id` INT NOT NULL,
+	`command_id` INT NOT NULL
+);
+
+ALTER TABLE `animal_species` ADD CONSTRAINT `animal_species_fk0` FOREIGN KEY (`type_id`) REFERENCES `animal_types`(`id`);
+
+ALTER TABLE `animals` ADD CONSTRAINT `animals_fk0` FOREIGN KEY (`animal_specie`) REFERENCES `animal_species`(`id`);
+
+ALTER TABLE `animal_commands` ADD CONSTRAINT `animal_commands_fk0` FOREIGN KEY (`animal_id`) REFERENCES `animals`(`id`);
+
+ALTER TABLE `animal_commands` ADD CONSTRAINT `animal_commands_fk1` FOREIGN KEY (`command_id`) REFERENCES `commands`(`id`);
+
+
+
+
+
+
